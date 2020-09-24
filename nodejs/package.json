@@ -1,0 +1,17 @@
+{
+    "name": "pharmacie-horaire-ubikom-nodejs",
+    "version": "0.0.1",
+    "description": "Back end for the Pharmacie App of Ubikom",
+    "main": "server.js",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "morgan": "^1.10.0",
+        "mysql": "^2.18.1"
+    },
+    "type": "module",
+    "scripts": {
+        "start": "node ./server.js"
+    }
+}
