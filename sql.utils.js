@@ -12,7 +12,8 @@ const config = {
   server: "postsearch-sql.database.windows.net", // update me
   options: {
     database: "sql", //update me
-    encrypt: true
+    encrypt: true,
+    rowCollectionOnDone: true
   }
 };
 

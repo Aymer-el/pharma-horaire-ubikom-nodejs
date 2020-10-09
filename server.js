@@ -13,7 +13,8 @@ connection.on("connect", err => {
   if (err) {
     console.error(err.message);
   } else {
-    new ControllerData().sendDataToServer();
+    // new ControllerData().sendDataToServer();
+    console.log('connected')
   }
 });
 
