@@ -6,7 +6,6 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import router from './routes.js';
 import connection from './sql.utils.js'
-import { ControllerData } from "./controllerData.js";
 
 // Attempt to connect and execute queries if connection goes through
 connection.on("connect", err => {

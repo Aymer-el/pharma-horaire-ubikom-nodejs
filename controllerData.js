@@ -4,6 +4,9 @@ import tedious from "tedious";
 import connection from './sql.utils.js'
 
 export class ControllerData {
+
+    pharmacies = [];
+
     readCSV() {
         return new Promise((resolve, reject)=> {
         const table = []
@@ -40,7 +43,7 @@ export class ControllerData {
             let dataSQL = '(';
             dataSQL += data.join('),(');
             dataSQL += ')';
-            const request = new tedious.Request(`INSERT INTO pharmacies (Nom, Tel, Adresse, Quartier, Ville)   
+            const request = new tedious.Request(`INSERT INTO pharmacies (Nom, Tel, Adresse, Quartier, Ville, Geographie)   
                 VALUES `+ dataSQL,
                 (err, rowCount) => {
                 if (err) {
@@ -74,7 +77,7 @@ export class ControllerData {
             });
             
             request.on('requestCompleted', function (rowCount, more, rows) {
-                resolve(JSON.parse("[" + response + "]"))
+                resolve(JSON.parse("[" + response + "]"));
             });
 
             request.on('errorMessage', (infoError) => {
@@ -84,4 +87,46 @@ export class ControllerData {
             connection.execSql(request);
         })
     }
+
+    getNearestPharmacies({lat, long}) {
+        return new Promise(async (resolve, reject) => {
+            this.pharmacies = await this.getPharmacies();
+            resolve(this.NearestPharmacies(lat, long));
+        })
+    }
+
+
+
+    // Convert Degress to Radians
+    Deg2Rad(deg) {
+        return deg * Math.PI / 180;
+    }
+  
+    PythagorasEquirectangular(lat1, lon1, lat2, lon2) {
+        lat1 = this.Deg2Rad(lat1);
+        lat2 = this.Deg2Rad(lat2);
+        lon1 = this.Deg2Rad(lon1);
+        lon2 = this.Deg2Rad(lon2);
+        var R = 10; // km
+        var x = (lon2 - lon1) * Math.cos((lat1 + lat2) / 2);
+        var y = (lat2 - lat1);
+        var d = Math.sqrt(x * x + y * y) * R;
+        return d;
+    }
+  
+    NearestPharmacies(latitude, longitude) {
+        var minDif = 99999;
+        var closest;
+        for (let i = 0; i < this.pharmacies.length; ++i) {
+            var dif = this.PythagorasEquirectangular(latitude, longitude, 
+                parseFloat(this.pharmacies[i].Geographie.split(',')[0]), 
+                parseFloat(this.pharmacies[i].Geographie.split(',')[1]));
+            if (dif < minDif) {
+                closest = i;
+                minDif = dif;
+            }
+        }
+        return this.pharmacies[closest]
+    }
+  
 }

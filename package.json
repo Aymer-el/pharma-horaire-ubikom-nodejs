@@ -3,6 +3,11 @@
     "version": "0.0.1",
     "description": "Back end for the Pharmacie App of Ubikom",
     "main": "server.js",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Aymer-el/pharma-horaire-ubikom-nodejs.git"
+      },
     "dependencies": {
         "cors": "^2.8.5",
         "csv-parser": "^2.3.3",

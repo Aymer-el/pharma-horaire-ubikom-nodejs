@@ -1,5 +1,5 @@
 import Connection from "tedious";
-
+// ResourceGroup: ubikomResourceGroup
 // Create connection to database
 const config = {
   authentication: {
@@ -9,7 +9,7 @@ const config = {
     },
     type: "default"
   },
-  server: "postsearch-sql.database.windows.net", // update me
+  server: "ubikomdb.database.windows.net", // update me
   options: {
     database: "sql", //update me
     encrypt: true,

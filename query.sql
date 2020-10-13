@@ -5,7 +5,8 @@ CREATE TABLE pharmacies (
   Tel VARCHAR(255),
   Adresse VARCHAR(255),
   Quartier VARCHAR(255),
-  Ville VARCHAR(255)
+  Ville VARCHAR(255),
+  Geographie VARCHAR(255),   
 );
 
 SELECT * FROM pharmacies
